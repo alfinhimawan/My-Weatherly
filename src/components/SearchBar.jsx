@@ -1,37 +1,31 @@
 import React, { useState } from "react";
-import Swal from 'sweetalert2';
 
 function SearchBar({ onSearch }) {
   const [city, setCity] = useState("");
 
   const handleSearch = () => {
-    if (!city) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Warning',
-        text: 'Please enter the city name first!',
-      });
-      return; 
+    if (!city.trim()) {
+      alert("Please enter a city name.");
+      return;
     }
-
     onSearch(city);
-    setCity(""); 
+    setCity("");
   };
 
   return (
-    <div className="flex justify-center items-center gap-4">
+    <div className="flex justify-center mt-6">
       <input
         type="text"
-        className="border rounded px-4 py-2"
-        placeholder="Enter city name"
+        placeholder="Enter city name..."
         value={city}
         onChange={(e) => setCity(e.target.value)}
+        className="border rounded-l px-4 py-2"
       />
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded"
         onClick={handleSearch}
+        className="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700"
       >
-        Search
+        Find
       </button>
     </div>
   );

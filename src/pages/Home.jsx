@@ -1,61 +1,60 @@
 import React, { useState } from "react";
+import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import WeatherCard from "../components/WeatherCard";
-import Swal from "sweetalert2";
+import WeatherForecast from "../components/WeatherForecast";
+import Footer from "../components/Footer";
 
 function Home() {
-  const [weatherData, setWeatherData] = useState(null);
-  const [error, setError] = useState(null);
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecast, setForecast] = useState([]);
 
-  const fetchWeather = async (location) => {
+  const fetchWeather = async (city) => {
+    const API_KEY = "5350af6a93aacd964eb9f66a919c63f4";
+
     try {
-      const lokasi = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${location}&format=json`
+      const weatherRes = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
       );
-      const locResult = await lokasi.json();
+      const weatherData = await weatherRes.json();
 
-      if (locResult.length === 0) {
-        throw new Error("City not found");
-      }
-
-      const API_KEY = "5350af6a93aacd964eb9f66a919c63f4";
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${locResult[0].lat}&lon=${locResult[0].lon}&lang=id&units=metric&appid=${API_KEY}`
+      const forecastRes = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
       );
+      const forecastData = await forecastRes.json();
 
-      if (!response.ok) {
-        throw new Error("Error fetching weather data");
-      }
-
-      const data = await response.json();
-      setWeatherData(data);
-      setError(null);
-
-      Swal.fire({
-        icon: "success",
-        title: "Data Found",
-        text: `Weather in ${data.name}, ${data.sys.country} successfully found!`,
+      setCurrentWeather({
+        city: weatherData.name,
+        country: weatherData.sys.country,
+        temp: Math.round(weatherData.main.temp),
+        description: weatherData.weather[0].description,
+        icon: weatherData.weather[0].icon,
       });
+
+      const dailyForecast = forecastData.list
+        .filter((_, index) => index % 8 === 0)
+        .map((item) => ({
+          date: new Date(item.dt_txt).toLocaleDateString(),
+          temp: Math.round(item.main.temp),
+          description: item.weather[0].description,
+          icon: item.weather[0].icon,
+        }));
+
+      setForecast(dailyForecast);
     } catch (error) {
-      console.error("Error:", error);
-      setError(error.message);
-      setWeatherData(null);
-
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.message,
-      });
+      alert("Failed to fetch weather data. Please try again.");
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-8 text-blue-700">
-        Welcome To MyWeatherly
-      </h1>
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
       <SearchBar onSearch={fetchWeather} />
-      {weatherData && <WeatherCard weather={weatherData} />}
+      <div className="container mx-auto p-6">
+        {currentWeather && <WeatherCard weather={currentWeather} />}
+        {forecast.length > 0 && <WeatherForecast forecast={forecast} />}
+      </div>
+      <Footer />
     </div>
   );
 }
