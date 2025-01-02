@@ -19,7 +19,7 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <form className="max-w-md mx-auto mt-4" onSubmit={handleSearch}>
+    <form className="max-w-md mx-auto mt-4 px-4 sm:px-6 lg:px-8" onSubmit={handleSearch}>
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
