@@ -47,7 +47,7 @@ Follow these instructions to get the project running on your local machine.
 
 4. **Run the application**:
    ```bash
-   yarn start
+   yarn dev
    ```
 
 5. **Access the application**:
