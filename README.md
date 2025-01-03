@@ -56,7 +56,7 @@ Follow these instructions to get the project running on your local machine.
 ## Project Structure 📂
 
 ```
-weatherly/
+myweatherly/
 ├── public/
 ├── src/
 │   ├── components/
