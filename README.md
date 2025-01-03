@@ -30,8 +30,8 @@ Follow these instructions to get the project running on your local machine.
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/alfinhimawan/weatherly.git
-   cd weatherly
+   git clone https://github.com/alfinhimawan/My-Weatherly.git
+   cd My-Weatherly
    ```
 
 2. **Install dependencies using Yarn**:
@@ -56,7 +56,7 @@ Follow these instructions to get the project running on your local machine.
 ## Project Structure 📂
 
 ```
-myweatherly/
+My-Weatherly/
 ├── public/
 ├── src/
 │   ├── components/
