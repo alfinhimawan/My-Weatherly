@@ -67,8 +67,8 @@ myweatherly/
 │   │   ├── Footer.jsx
 │   ├── pages/
 │   │   ├── Home.jsx
-│   ├── App.js
-│   ├── index.js
+│   ├── App.jsx
+│   ├── index.jsx
 ├── .env
 ├── package.json
 ```
