@@ -1,4 +1,3 @@
-```markdown
 # Weatherly 🌦️
 
 Weatherly is a responsive weather forecast application built using React.js. It allows users to search for weather conditions in a specific location and view detailed forecasts for the next 7 days.
@@ -98,4 +97,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 ### Created by [Alfin Himawan Santosa](https://github.com/alfinhimawan) ❤️
-```
